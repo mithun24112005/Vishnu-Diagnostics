@@ -1,65 +1,498 @@
 import Image from "next/image";
+import Link from "next/link";
+import {
+  ScanLine,
+  FlaskConical,
+  Heart,
+  Activity,
+  Home,
+  Baby,
+  Zap,
+  Users,
+  FileText,
+  HeartHandshake,
+} from "lucide-react";
+import BookButton from "./components/BookButton";
+import SectionHeader from "./components/SectionHeader";
+import ServiceCard from "./components/ServiceCard";
+import DoctorCard from "./components/DoctorCard";
+import TestimonialCard from "./components/TestimonialCard";
+import TrustBar from "./components/TrustBar";
+import PackageCard from "./components/PackageCard";
+import CTABanner from "./components/CTABanner";
+import FAQAccordion from "./components/FAQAccordion";
 
-export default function Home() {
+const BASE_URL = "https://shreevishnudiagnostics.com/assets/imgs";
+
+const SERVICES = [
+  {
+    icon: ScanLine,
+    title: "Radiology",
+    tests: [
+      "Multislice CT Scan (24x7)",
+      "4D Ultrasonography",
+      "Doppler Studies",
+      "Obstetric Scan",
+      "Digital X-Ray",
+    ],
+    ctaLabel: "Book Radiology Test",
+    href: "/services/radiology",
+  },
+  {
+    icon: FlaskConical,
+    title: "Laboratory Services",
+    tests: ["Haematology", "SFNAC / Biopsy", "Biochemistry", "Hormonal Assay"],
+    ctaLabel: "Book Lab Test",
+    href: "/services/laboratory",
+  },
+  {
+    icon: Heart,
+    title: "Cardio-Pulmonary",
+    tests: ["12 Lead ECG", "2D Echo", "Pulmonary Function Test (PFT)"],
+    ctaLabel: "Book Cardio Test",
+    href: "/services/cardio-pulmonary",
+  },
+  {
+    icon: Activity,
+    title: "Gastroenterology",
+    tests: ["Endoscopy", "Colonoscopy"],
+    ctaLabel: "Book Appointment",
+    href: "/services/gastroenterology",
+  },
+  {
+    icon: Home,
+    title: "Home Collection",
+    tests: [
+      "Convenient Sample Collection",
+      "Trained Phlebotomists",
+      "Timely Reports",
+    ],
+    ctaLabel: "Book Home Visit",
+    href: "/services/home-collection",
+  },
+  {
+    icon: Baby,
+    title: "Ultrasound / Pregnancy Scans",
+    tests: ["Obstetric Scan", "4D Pregnancy Scan", "Anomaly Scan"],
+    ctaLabel: "Book Scan",
+    href: "/services/radiology",
+  },
+];
+
+const DOCTORS = [
+  {
+    name: "Dr. Vinay Kumar K M",
+    role: "Consultant Diagnostic & Interventional Radiologist",
+    image: `${BASE_URL}/doctors/drVinay.jpg`,
+  },
+  {
+    name: "Dr. Mahantesh S Magadum",
+    role: "Consultant Radiologist, Fetal Medicine Specialist",
+    image: `${BASE_URL}/doctors/drMahantesh.jpg`,
+  },
+  {
+    name: "Dr. Shruthi H P",
+    role: "Pathologist",
+    image: `${BASE_URL}/doctors/drShruthi.jpg`,
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    quote:
+      "Excellent service and courteous staff. The check-up was prompt, and Dr. Vinay was very responsive. A wonderful experience!",
+    name: "Patient, Bangalore",
+  },
+  {
+    quote:
+      "Quick and efficient blood tests and X-ray services. The staff was very helpful and guided me through the process. Highly recommend!",
+    name: "Patient, Bangalore",
+  },
+  {
+    quote:
+      "Really a great place — support staff and doctors are very caring. Dr Vinay explained everything clearly. Very clean centre with blood checkup, ECG, X-ray and ultrasound scans.",
+    name: "Patient, Bangalore",
+  },
+];
+
+const FAQ_ITEMS = [
+  {
+    question: "What diagnostic services do you offer?",
+    answer:
+      "We offer Radiology (CT, MRI, Ultrasound, X-Ray), Laboratory testing, Cardio-Pulmonary diagnostics (ECG, 2D Echo, PFT), Gastroenterology (Endoscopy, Colonoscopy), and Home Sample Collection.",
+  },
+  {
+    question: "How do I book an appointment?",
+    answer:
+      "Click 'Book Appointment' on our website to fill a quick Google Form. Our team will call you within 30 minutes to confirm. You can also WhatsApp us or call 7204002666.",
+  },
+  {
+    question: "When will I receive my test results?",
+    answer:
+      "Most lab reports are ready within 6–24 hours. Radiology and scan reports are typically available the same day. Urgent reports can be expedited on request.",
+  },
+  {
+    question: "Do you offer home sample collection?",
+    answer:
+      "Yes, we send trained phlebotomists to your home for blood and urine sample collection across Bangalore. Book via our website or WhatsApp.",
+  },
+  {
+    question: "What are your working hours?",
+    answer:
+      "Lab: 7:00 AM to 9:00 PM. Scans: 9:00 AM to 9:00 PM. We are open 7 days a week including Sundays.",
+  },
+];
+
+const PACKAGES = [
+  {
+    name: "Basic Health Check",
+    tests: ["CBC", "Urine Routine", "Random Blood Sugar"],
+    price: "₹499",
+  },
+  {
+    name: "Full Body Checkup",
+    tests: [
+      "40+ parameters",
+      "CBC, LFT, KFT",
+      "Lipid Profile",
+      "Thyroid Panel",
+      "Urine Routine",
+    ],
+    price: "₹999",
+    featured: true,
+    badge: "Most Popular",
+  },
+  {
+    name: "Cardiac Profile",
+    tests: ["ECG", "2D Echo", "Lipid Panel", "BP Check"],
+    price: "₹1499",
+  },
+];
+
+const medicalClinicJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MedicalClinic",
+  name: "Shree Vishnu Scans & Diagnostics",
+  description: "Premier diagnostic centre in Bangalore",
+  url: "https://shreevishnudiagnostics.com",
+  telephone: "+917204002666",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "No 41, Bagalur Cross, Near Brindavana College",
+    addressLocality: "Kattigenahalli, Yelahanka",
+    addressRegion: "Karnataka",
+    postalCode: "560063",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 13.121508,
+    longitude: 77.621928,
+  },
+  openingHours: ["Mo-Su 07:00-21:00"],
+  medicalSpecialty: [
+    "Radiology",
+    "Pathology",
+    "Cardiology",
+    "Gastroenterology",
+  ],
+  hasMap:
+    "https://www.google.com/maps?cid=18027945034474075813",
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(medicalClinicJsonLd),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd),
+        }}
+      />
+
+      {/* ═══ SECTION 1 — HERO ═══ */}
+      <section className="section-padding bg-canvas">
+        <div className="content-container">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Left — Text (60%) */}
+            <div className="lg:w-[60%]">
+              <p className="text-eyebrow text-ink-muted mb-4">
+                Trusted Diagnostic Centre in Bangalore
+              </p>
+              <h1 className="text-display-lg text-ink mb-6">
+                Accurate Diagnostics.
+                <br />
+                Trusted Care.
+              </h1>
+              <p className="text-body-lg text-ink-muted mb-8 max-w-lg">
+                State-of-the-art imaging, laboratory, and cardiac diagnostic
+                services in Kattigenahalli, North Bangalore. Reports within 24
+                hours.
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <BookButton label="Book Appointment" />
+                <Link
+                  href="/services"
+                  className="inline-flex items-center justify-center text-button px-[18px] py-[10px] rounded-md border border-hairline bg-surface text-ink hover:bg-surface-2 transition-colors"
+                >
+                  View Services
+                </Link>
+              </div>
+            </div>
+
+            {/* Right — Image (40%) */}
+            <div className="lg:w-[40%] w-full">
+              <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
+                <Image
+                  src={`${BASE_URL}/real_img_7.jpg`}
+                  alt="Shree Vishnu Scans & Diagnostics Centre"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  priority={true}
+                />
+              </div>
+              {/* Open Today badge */}
+              <div className="flex items-center gap-2 mt-3 bg-surface border border-hairline rounded-md px-3 py-2 w-fit">
+                <span className="w-2 h-2 rounded-full bg-status-green animate-pulse" />
+                <span className="text-body-sm text-ink">
+                  Open Today: 7 AM – 9 PM
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* ═══ SECTION 2 — TRUST BAR ═══ */}
+      <TrustBar />
+
+      {/* ═══ SECTION 3 — OUR SERVICES ═══ */}
+      <section className="section-padding">
+        <div className="content-container">
+          <SectionHeader
+            eyebrow="What we offer"
+            headline="Comprehensive Diagnostic Services"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SERVICES.map((service) => (
+              <ServiceCard key={service.title} {...service} />
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ═══ SECTION 4 — WHY CHOOSE US ═══ */}
+      <section className="section-padding bg-surface border-y border-hairline">
+        <div className="content-container">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <div className="lg:w-1/2">
+              <SectionHeader
+                eyebrow="Why patients trust us"
+                headline="The Shree Vishnu Difference"
+                align="left"
+              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    icon: Zap,
+                    title: "Advanced Technology",
+                    desc: "State-of-the-art diagnostic equipment for accurate results",
+                  },
+                  {
+                    icon: Users,
+                    title: "Expert Specialists",
+                    desc: "5 qualified doctors across all departments",
+                  },
+                  {
+                    icon: FileText,
+                    title: "Fast Reports",
+                    desc: "Digital reports delivered within 24 hours",
+                  },
+                  {
+                    icon: HeartHandshake,
+                    title: "Patient-First Care",
+                    desc: "Personalized, compassionate diagnostics",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.title}
+                    className="bg-canvas border border-hairline-soft rounded-lg p-5"
+                  >
+                    <item.icon className="w-5 h-5 text-orange mb-3" />
+                    <h3 className="text-body font-medium text-ink mb-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-body-sm text-ink-muted">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="lg:w-1/2 w-full">
+              <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
+                <Image
+                  src={`${BASE_URL}/real_img_8.jpg`}
+                  alt="Advanced diagnostic equipment at Shree Vishnu"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SECTION 5 — MEET OUR DOCTORS ═══ */}
+      <section className="section-padding">
+        <div className="content-container">
+          <SectionHeader
+            eyebrow="Our team"
+            headline="Experienced Specialists You Can Trust"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {DOCTORS.map((doctor) => (
+              <DoctorCard key={doctor.name} {...doctor} />
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/doctors"
+              className="text-body text-ink hover:text-orange transition-colors underline-offset-2 hover:underline font-medium"
+            >
+              Meet All Our Doctors →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SECTION 6 — HEALTH PACKAGES ═══ */}
+      <section className="section-padding bg-canvas">
+        <div className="content-container">
+          <SectionHeader
+            eyebrow="Health packages"
+            headline="Preventive Care Made Affordable"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {PACKAGES.map((pkg) => (
+              <PackageCard key={pkg.name} {...pkg} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SECTION 7 — TESTIMONIALS ═══ */}
+      <section className="section-padding">
+        <div className="content-container">
+          <SectionHeader
+            eyebrow="What patients say"
+            headline="Trusted by Thousands in Bangalore"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {TESTIMONIALS.map((testimonial, index) => (
+              <TestimonialCard key={index} {...testimonial} />
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <a
+              href="https://www.google.com/maps?cid=18027945034474075813"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-body text-ink hover:text-orange transition-colors underline-offset-2 hover:underline font-medium"
+            >
+              See all reviews on Google →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SECTION 8 — GALLERY STRIP ═══ */}
+      <section className="section-padding bg-surface border-y border-hairline">
+        <div className="content-container">
+          <SectionHeader
+            eyebrow="Our facility"
+            headline="Clean, Modern Infrastructure"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { src: `${BASE_URL}/real_img_3.jpg`, alt: "Reception area" },
+              { src: `${BASE_URL}/real_img_5.jpg`, alt: "Radiology suite" },
+              { src: `${BASE_URL}/real_img_10.jpg`, alt: "Clean infrastructure" },
+            ].map((img, index) => (
+              <div
+                key={index}
+                className="relative h-[280px] rounded-xl overflow-hidden"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/gallery"
+              className="text-body text-ink hover:text-orange transition-colors underline-offset-2 hover:underline font-medium"
+            >
+              View Full Gallery →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SECTION 9 — FAQ ACCORDION ═══ */}
+      <section className="section-padding">
+        <div className="content-container">
+          <div className="flex flex-col lg:flex-row gap-12">
+            <div className="lg:w-1/2">
+              <SectionHeader
+                eyebrow="Common questions"
+                headline="Everything You Need to Know"
+                align="left"
+              />
+              <FAQAccordion items={FAQ_ITEMS} />
+            </div>
+            <div className="lg:w-1/2">
+              <div className="relative rounded-xl overflow-hidden aspect-[4/3] sticky top-20">
+                <Image
+                  src={`${BASE_URL}/real_img_4.jpg`}
+                  alt="Consultation room"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SECTION 10 — CTA BANNER ═══ */}
+      <CTABanner />
+    </>
   );
 }
