@@ -21,6 +21,8 @@ import TrustBar from "./components/TrustBar";
 import PackageCard from "./components/PackageCard";
 import CTABanner from "./components/CTABanner";
 import FAQAccordion from "./components/FAQAccordion";
+import FadeIn from "./components/FadeIn";
+import { StaggerChildren, StaggerItem } from "./components/StaggerChildren";
 
 const BASE_URL = "https://shreevishnudiagnostics.com/assets/imgs";
 
@@ -37,6 +39,8 @@ const SERVICES = [
     ],
     ctaLabel: "Book Radiology Test",
     href: "/services/radiology",
+    iconBg: "rgba(0, 112, 243, 0.10)",
+    iconColor: "#0070F3",
   },
   {
     icon: FlaskConical,
@@ -44,6 +48,8 @@ const SERVICES = [
     tests: ["Haematology", "SFNAC / Biopsy", "Biochemistry", "Hormonal Assay"],
     ctaLabel: "Book Lab Test",
     href: "/services/laboratory",
+    iconBg: "rgba(16, 185, 129, 0.10)",
+    iconColor: "#10B981",
   },
   {
     icon: Heart,
@@ -51,6 +57,8 @@ const SERVICES = [
     tests: ["12 Lead ECG", "2D Echo", "Pulmonary Function Test (PFT)"],
     ctaLabel: "Book Cardio Test",
     href: "/services/cardio-pulmonary",
+    iconBg: "rgba(239, 68, 68, 0.10)",
+    iconColor: "#EF4444",
   },
   {
     icon: Activity,
@@ -58,6 +66,8 @@ const SERVICES = [
     tests: ["Endoscopy", "Colonoscopy"],
     ctaLabel: "Book Appointment",
     href: "/services/gastroenterology",
+    iconBg: "rgba(139, 92, 246, 0.10)",
+    iconColor: "#8B5CF6",
   },
   {
     icon: Home,
@@ -69,6 +79,8 @@ const SERVICES = [
     ],
     ctaLabel: "Book Home Visit",
     href: "/services/home-collection",
+    iconBg: "rgba(245, 158, 11, 0.10)",
+    iconColor: "#F59E0B",
   },
   {
     icon: Baby,
@@ -76,6 +88,8 @@ const SERVICES = [
     tests: ["Obstetric Scan", "4D Pregnancy Scan", "Anomaly Scan"],
     ctaLabel: "Book Scan",
     href: "/services/radiology",
+    iconBg: "rgba(236, 72, 153, 0.10)",
+    iconColor: "#EC4899",
   },
 ];
 
@@ -236,21 +250,23 @@ export default function HomePage() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             {/* Left — Text (60%) */}
             <div className="lg:w-[60%]">
-              <p className="text-eyebrow text-ink-muted mb-4">
-                Trusted Diagnostic Centre in Bangalore
-              </p>
-              <h1 className="text-display-lg text-ink mb-6">
-                Accurate Diagnostics.
-                <br />
-                Trusted Care.
-              </h1>
-              <p className="text-body-lg text-ink-muted mb-8 max-w-lg">
-                State-of-the-art imaging, laboratory, and cardiac diagnostic
-                services in Kattigenahalli, North Bangalore. Reports within 24
-                hours.
-              </p>
+              <FadeIn>
+                <p className="text-eyebrow text-ink-muted mb-4">
+                  Trusted Diagnostic Centre in Bangalore
+                </p>
+                <h1 className="text-display-lg text-ink mb-6">
+                  Accurate Diagnostics.
+                  <br />
+                  Trusted Care.
+                </h1>
+                <p className="text-body-lg text-ink-muted mb-8 max-w-lg">
+                  State-of-the-art imaging, laboratory, and cardiac diagnostic
+                  services in Kattigenahalli, North Bangalore. Reports within 24
+                  hours.
+                </p>
+              </FadeIn>
               <div className="flex flex-wrap items-center gap-3">
-                <BookButton label="Book Appointment" />
+                <BookButton label="Book Appointment" className="btn-pulse" />
                 <Link
                   href="/services"
                   className="inline-flex items-center justify-center text-button px-[18px] py-[10px] rounded-md border border-hairline bg-surface text-ink hover:bg-surface-2 transition-colors"
@@ -262,7 +278,7 @@ export default function HomePage() {
 
             {/* Right — Image (40%) */}
             <div className="lg:w-[40%] w-full">
-              <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
+              <div className="relative rounded-xl overflow-hidden" style={{ minHeight: "480px" }}>
                 <Image
                   src={`${BASE_URL}/real_img_7.jpg`}
                   alt="Shree Vishnu Scans & Diagnostics Centre"
@@ -271,13 +287,16 @@ export default function HomePage() {
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   priority={true}
                 />
-              </div>
-              {/* Open Today badge */}
-              <div className="flex items-center gap-2 mt-3 bg-surface border border-hairline rounded-md px-3 py-2 w-fit">
-                <span className="w-2 h-2 rounded-full bg-status-green animate-pulse" />
-                <span className="text-body-sm text-ink">
-                  Open Today: 7 AM – 9 PM
-                </span>
+                {/* Open Today badge — overlaps bottom-left of image */}
+                <div
+                  className="absolute flex items-center gap-2 bg-surface border border-hairline rounded-md px-3 py-2 w-fit shadow-sm"
+                  style={{ bottom: "16px", left: "16px" }}
+                >
+                  <span className="w-2 h-2 rounded-full bg-status-green animate-pulse" />
+                  <span className="text-body-sm text-ink">
+                    Open Today: 7 AM – 9 PM
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -288,17 +307,21 @@ export default function HomePage() {
       <TrustBar />
 
       {/* ═══ SECTION 3 — OUR SERVICES ═══ */}
-      <section className="section-padding">
+      <section className="py-24 max-md:py-12">
         <div className="content-container">
-          <SectionHeader
-            eyebrow="What we offer"
-            headline="Comprehensive Diagnostic Services"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <FadeIn>
+            <SectionHeader
+              eyebrow="What we offer"
+              headline="Comprehensive Diagnostic Services"
+            />
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SERVICES.map((service) => (
-              <ServiceCard key={service.title} {...service} />
+              <StaggerItem key={service.title}>
+                <ServiceCard {...service} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
@@ -307,12 +330,14 @@ export default function HomePage() {
         <div className="content-container">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="lg:w-1/2">
-              <SectionHeader
-                eyebrow="Why patients trust us"
-                headline="The Shree Vishnu Difference"
-                align="left"
-              />
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FadeIn>
+                <SectionHeader
+                  eyebrow="Why patients trust us"
+                  headline="The Shree Vishnu Difference"
+                  align="left"
+                />
+              </FadeIn>
+              <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   {
                     icon: Zap,
@@ -335,18 +360,17 @@ export default function HomePage() {
                     desc: "Personalized, compassionate diagnostics",
                   },
                 ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="bg-canvas border border-hairline-soft rounded-lg p-5"
-                  >
-                    <item.icon className="w-5 h-5 text-orange mb-3" />
-                    <h3 className="text-body font-medium text-ink mb-1">
-                      {item.title}
-                    </h3>
-                    <p className="text-body-sm text-ink-muted">{item.desc}</p>
-                  </div>
+                  <StaggerItem key={item.title}>
+                    <div className="bg-canvas border border-hairline-soft rounded-lg p-5 h-full">
+                      <item.icon className="w-5 h-5 text-orange mb-3" />
+                      <h3 className="text-body font-medium text-ink mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-body-sm text-ink-muted">{item.desc}</p>
+                    </div>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerChildren>
             </div>
             <div className="lg:w-1/2 w-full">
               <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
@@ -364,17 +388,21 @@ export default function HomePage() {
       </section>
 
       {/* ═══ SECTION 5 — MEET OUR DOCTORS ═══ */}
-      <section className="section-padding">
+      <section className="py-24 max-md:py-12">
         <div className="content-container">
-          <SectionHeader
-            eyebrow="Our team"
-            headline="Experienced Specialists You Can Trust"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <FadeIn>
+            <SectionHeader
+              eyebrow="Our team"
+              headline="Experienced Specialists You Can Trust"
+            />
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {DOCTORS.map((doctor) => (
-              <DoctorCard key={doctor.name} {...doctor} />
+              <StaggerItem key={doctor.name}>
+                <DoctorCard {...doctor} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
           <div className="text-center mt-8">
             <Link
               href="/doctors"
@@ -387,32 +415,40 @@ export default function HomePage() {
       </section>
 
       {/* ═══ SECTION 6 — HEALTH PACKAGES ═══ */}
-      <section className="section-padding bg-canvas">
+      <section className="py-24 max-md:py-12 bg-canvas">
         <div className="content-container">
-          <SectionHeader
-            eyebrow="Health packages"
-            headline="Preventive Care Made Affordable"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <FadeIn>
+            <SectionHeader
+              eyebrow="Health packages"
+              headline="Preventive Care Made Affordable"
+            />
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {PACKAGES.map((pkg) => (
-              <PackageCard key={pkg.name} {...pkg} />
+              <StaggerItem key={pkg.name}>
+                <PackageCard {...pkg} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* ═══ SECTION 7 — TESTIMONIALS ═══ */}
-      <section className="section-padding">
+      <section className="py-24 max-md:py-12">
         <div className="content-container">
-          <SectionHeader
-            eyebrow="What patients say"
-            headline="Trusted by Thousands in Bangalore"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <FadeIn>
+            <SectionHeader
+              eyebrow="What patients say"
+              headline="Trusted by Thousands in Bangalore"
+            />
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {TESTIMONIALS.map((testimonial, index) => (
-              <TestimonialCard key={index} {...testimonial} />
+              <StaggerItem key={index}>
+                <TestimonialCard {...testimonial} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
           <div className="text-center mt-8">
             <a
               href="https://www.google.com/maps?cid=18027945034474075813"
@@ -429,30 +465,31 @@ export default function HomePage() {
       {/* ═══ SECTION 8 — GALLERY STRIP ═══ */}
       <section className="section-padding bg-surface border-y border-hairline">
         <div className="content-container">
-          <SectionHeader
-            eyebrow="Our facility"
-            headline="Clean, Modern Infrastructure"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <FadeIn>
+            <SectionHeader
+              eyebrow="Our facility"
+              headline="Clean, Modern Infrastructure"
+            />
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               { src: `${BASE_URL}/real_img_3.jpg`, alt: "Reception area" },
               { src: `${BASE_URL}/real_img_5.jpg`, alt: "Radiology suite" },
               { src: `${BASE_URL}/real_img_10.jpg`, alt: "Clean infrastructure" },
             ].map((img, index) => (
-              <div
-                key={index}
-                className="relative h-[280px] rounded-xl overflow-hidden"
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
+              <StaggerItem key={index}>
+                <div className="relative h-[280px] rounded-xl overflow-hidden">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
           <div className="text-center mt-8">
             <Link
               href="/gallery"
@@ -465,25 +502,27 @@ export default function HomePage() {
       </section>
 
       {/* ═══ SECTION 9 — FAQ ACCORDION ═══ */}
-      <section className="section-padding">
+      <section className="py-24 max-md:py-12">
         <div className="content-container">
           <div className="flex flex-col lg:flex-row gap-12">
             <div className="lg:w-1/2">
-              <SectionHeader
-                eyebrow="Common questions"
-                headline="Everything You Need to Know"
-                align="left"
-              />
+              <FadeIn>
+                <SectionHeader
+                  eyebrow="Common questions"
+                  headline="Everything You Need to Know"
+                  align="left"
+                />
+              </FadeIn>
               <FAQAccordion items={FAQ_ITEMS} />
             </div>
-            <div className="lg:w-1/2">
+            <div className="hidden lg:block lg:w-1/2">
               <div className="relative rounded-xl overflow-hidden aspect-[4/3] sticky top-20">
                 <Image
                   src={`${BASE_URL}/real_img_4.jpg`}
                   alt="Consultation room"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="50vw"
                 />
               </div>
             </div>
@@ -492,7 +531,9 @@ export default function HomePage() {
       </section>
 
       {/* ═══ SECTION 10 — CTA BANNER ═══ */}
-      <CTABanner />
+      <FadeIn>
+        <CTABanner />
+      </FadeIn>
     </>
   );
 }

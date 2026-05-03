@@ -20,7 +20,7 @@ export default function BookButton({
         href={GOOGLE_FORM_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className={`inline-flex items-center justify-center text-button px-[18px] py-[10px] rounded-md border border-hairline bg-surface text-ink hover:bg-surface-2 transition-colors ${className}`}
+        className={`inline-flex items-center justify-center text-button px-[18px] py-[10px] rounded-md border border-hairline bg-surface text-ink hover:bg-surface-2 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition-all ${className}`}
       >
         {label}
       </Link>
@@ -32,7 +32,7 @@ export default function BookButton({
       href={GOOGLE_FORM_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center text-button px-[18px] py-[10px] rounded-md bg-orange text-white hover:brightness-110 transition-all ${className}`}
+      className={`inline-flex items-center justify-center text-button px-[18px] py-[10px] rounded-md bg-orange text-white hover:brightness-110 btn-shadow-orange ${className}`}
     >
       {label}
     </Link>

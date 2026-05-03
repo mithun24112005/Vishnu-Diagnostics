@@ -3,6 +3,8 @@ import Breadcrumb from "../../components/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader";
 import BookButton from "../../components/BookButton";
 import CTABanner from "../../components/CTABanner";
+import FadeIn from "../../components/FadeIn";
+import { StaggerChildren, StaggerItem } from "../../components/StaggerChildren";
 
 export const metadata: Metadata = {
   title: "ECG & 2D Echo Test in Bangalore",
@@ -36,7 +38,7 @@ export default function CardioPulmonaryPage() {
               { label: "Cardio-Pulmonary" },
             ]}
           />
-          <div className="max-w-3xl">
+          <FadeIn className="max-w-3xl">
             <h1 className="text-display-lg text-ink mb-4">
               Cardio-Pulmonary Diagnostics
             </h1>
@@ -46,36 +48,39 @@ export default function CardioPulmonaryPage() {
               respiratory assessment.
             </p>
             <BookButton label="Book Cardiac Test" />
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       <section className="section-padding bg-surface border-y border-hairline">
         <div className="content-container">
-          <SectionHeader
-            eyebrow="Cardiac & pulmonary tests"
-            headline="Our Tests"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <FadeIn>
+            <SectionHeader
+              eyebrow="Cardiac & pulmonary tests"
+              headline="Our Tests"
+            />
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {SERVICES.map((service) => (
-              <div
-                key={service.name}
-                className="bg-canvas border border-hairline-soft rounded-lg p-6"
-              >
-                <h3 className="text-card-title text-ink mb-2">
-                  {service.name}
-                </h3>
-                <p className="text-body-sm text-ink-muted">{service.desc}</p>
-              </div>
+              <StaggerItem key={service.name}>
+                <div className="bg-canvas border border-hairline-soft rounded-lg p-6">
+                  <h3 className="text-card-title text-ink mb-2">
+                    {service.name}
+                  </h3>
+                  <p className="text-body-sm text-ink-muted">{service.desc}</p>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
-      <CTABanner
-        headline="Need a cardiac test?"
-        subtext="Book your ECG, 2D Echo, or PFT test today."
-      />
+      <FadeIn>
+        <CTABanner
+          headline="Need a cardiac test?"
+          subtext="Book your ECG, 2D Echo, or PFT test today."
+        />
+      </FadeIn>
     </>
   );
 }

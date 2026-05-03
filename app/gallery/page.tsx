@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import SectionHeader from "../components/SectionHeader";
 import GalleryLightbox from "../components/GalleryLightbox";
+import FadeIn from "../components/FadeIn";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -28,11 +29,13 @@ export default function GalleryPage() {
   return (
     <section className="section-padding">
       <div className="content-container">
-        <SectionHeader
-          headline="Our Facility"
-          subtext="State-of-the-art infrastructure designed for patient comfort."
-        />
-        <GalleryLightbox images={GALLERY_IMAGES} />
+        <FadeIn>
+          <SectionHeader
+            headline="Our Facility"
+            subtext="State-of-the-art infrastructure designed for patient comfort."
+          />
+          <GalleryLightbox images={GALLERY_IMAGES} />
+        </FadeIn>
       </div>
     </section>
   );

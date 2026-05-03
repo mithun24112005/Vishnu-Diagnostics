@@ -17,8 +17,11 @@ export default function DoctorCard({
   showBookButton = true,
 }: DoctorCardProps) {
   return (
-    <div className="bg-surface border border-hairline rounded-lg p-6 flex flex-col items-center text-center">
-      <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden mb-4 border-2 border-hairline-soft">
+    <div className="bg-surface border border-hairline rounded-lg p-6 flex flex-col items-center text-center card-shadow">
+      <div
+        className="relative w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-hairline-soft"
+        style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
+      >
         <Image
           src={image}
           alt={name}

@@ -4,6 +4,8 @@ import Breadcrumb from "../../components/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader";
 import BookButton from "../../components/BookButton";
 import CTABanner from "../../components/CTABanner";
+import FadeIn from "../../components/FadeIn";
+import { StaggerChildren, StaggerItem } from "../../components/StaggerChildren";
 
 export const metadata: Metadata = {
   title: "Home Sample Collection in Bangalore",
@@ -51,7 +53,7 @@ export default function HomeCollectionPage() {
               { label: "Home Collection" },
             ]}
           />
-          <div className="max-w-3xl">
+          <FadeIn className="max-w-3xl">
             <h1 className="text-display-lg text-ink mb-4">
               Home Sample Collection
             </h1>
@@ -61,59 +63,63 @@ export default function HomeCollectionPage() {
               collect your samples at a time convenient for you.
             </p>
             <BookButton label="Book Home Collection" />
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       <section className="section-padding bg-surface border-y border-hairline">
         <div className="content-container">
-          <SectionHeader
-            eyebrow="How it works"
-            headline="Easy Home Collection"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <FadeIn>
+            <SectionHeader
+              eyebrow="How it works"
+              headline="Easy Home Collection"
+            />
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {FEATURES.map((feature) => (
-              <div
-                key={feature.title}
-                className="bg-canvas border border-hairline-soft rounded-lg p-6 text-center"
-              >
-                <div className="w-11 h-11 rounded-md bg-surface flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="w-5 h-5 text-orange" />
+              <StaggerItem key={feature.title}>
+                <div className="bg-canvas border border-hairline-soft rounded-lg p-6 text-center">
+                  <div className="w-11 h-11 rounded-md bg-surface flex items-center justify-center mx-auto mb-4">
+                    <feature.icon className="w-5 h-5 text-orange" />
+                  </div>
+                  <h3 className="text-card-title text-ink mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-body-sm text-ink-muted">{feature.desc}</p>
                 </div>
-                <h3 className="text-card-title text-ink mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-body-sm text-ink-muted">{feature.desc}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       <section className="section-padding">
         <div className="content-container">
-          <SectionHeader
-            eyebrow="Service coverage"
-            headline="Areas We Cover"
-            subtext="We provide home sample collection across North Bangalore and surrounding areas."
-          />
-          <div className="flex flex-wrap justify-center gap-3 max-w-2xl mx-auto">
+          <FadeIn>
+            <SectionHeader
+              eyebrow="Service coverage"
+              headline="Areas We Cover"
+              subtext="We provide home sample collection across North Bangalore and surrounding areas."
+            />
+          </FadeIn>
+          <StaggerChildren className="flex flex-wrap justify-center gap-3 max-w-2xl mx-auto">
             {SERVICE_AREAS.map((area) => (
-              <span
-                key={area}
-                className="text-body-sm bg-surface border border-hairline px-4 py-2 rounded-pill"
-              >
-                {area}
-              </span>
+              <StaggerItem key={area}>
+                <span className="text-body-sm bg-surface border border-hairline px-4 py-2 rounded-pill">
+                  {area}
+                </span>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
-      <CTABanner
-        headline="Need a home visit?"
-        subtext="Book sample collection at your doorstep — quick, hygienic, and convenient."
-      />
+      <FadeIn>
+        <CTABanner
+          headline="Need a home visit?"
+          subtext="Book sample collection at your doorstep — quick, hygienic, and convenient."
+        />
+      </FadeIn>
     </>
   );
 }

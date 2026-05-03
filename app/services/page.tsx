@@ -11,6 +11,8 @@ import Breadcrumb from "../components/Breadcrumb";
 import SectionHeader from "../components/SectionHeader";
 import ServiceCard from "../components/ServiceCard";
 import CTABanner from "../components/CTABanner";
+import FadeIn from "../components/FadeIn";
+import { StaggerChildren, StaggerItem } from "../components/StaggerChildren";
 
 export const metadata: Metadata = {
   title: "Our Diagnostic Services",
@@ -95,17 +97,23 @@ export default function ServicesPage() {
     <section className="section-padding">
       <div className="content-container">
         <Breadcrumb items={[{ label: "Services" }]} />
-        <SectionHeader
-          headline="Our Diagnostic Services"
-          subtext="Comprehensive imaging, laboratory, and specialist diagnostic services under one roof."
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <FadeIn>
+          <SectionHeader
+            headline="Our Diagnostic Services"
+            subtext="Comprehensive imaging, laboratory, and specialist diagnostic services under one roof."
+          />
+        </FadeIn>
+        <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {SERVICES.map((service) => (
-            <ServiceCard key={service.title} {...service} />
+            <StaggerItem key={service.title}>
+              <ServiceCard {...service} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
       </div>
-      <CTABanner />
+      <FadeIn>
+        <CTABanner />
+      </FadeIn>
     </section>
   );
 }

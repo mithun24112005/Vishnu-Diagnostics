@@ -1,9 +1,11 @@
+import AnimatedCounter from "./AnimatedCounter";
+
 export default function TrustBar() {
   const stats = [
-    { value: "10+", label: "Years of Service" },
-    { value: "50,000+", label: "Patients Served" },
-    { value: "5", label: "Expert Specialists" },
-    { value: "24hr", label: "Report Delivery" },
+    { value: 10, suffix: "+", label: "Years of Service" },
+    { value: 50000, suffix: "+", label: "Patients Served", duration: 2500 },
+    { value: 5, suffix: "", label: "Expert Specialists" },
+    { value: 24, suffix: "hr", label: "Report Delivery" },
   ];
 
   return (
@@ -19,7 +21,12 @@ export default function TrustBar() {
                   : ""
               }`}
             >
-              <p className="text-display-md text-orange">{stat.value}</p>
+              <p
+                className="text-orange font-medium leading-tight"
+                style={{ fontSize: "40px", letterSpacing: "-1px" }}
+              >
+                <AnimatedCounter end={stat.value} suffix={stat.suffix} duration={stat.duration || 2000} />
+              </p>
               <p className="text-body-sm text-ink-muted mt-1">{stat.label}</p>
             </div>
           ))}

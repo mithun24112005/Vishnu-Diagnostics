@@ -36,6 +36,91 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
+@layer base {
+  :root {
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 12px 40px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.07);
+    --shadow-orange: 0 8px 24px rgba(255,86,0,0.25), 0 2px 8px rgba(255,86,0,0.15);
+    --shadow-orange-hover: 0 12px 32px rgba(255,86,0,0.35), 0 4px 12px rgba(255,86,0,0.20);
+  }
+
+  .dark {
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.20), 0 1px 2px rgba(0,0,0,0.15);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.30), 0 2px 6px rgba(0,0,0,0.20);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.40), 0 4px 12px rgba(0,0,0,0.25);
+    --shadow-hover: 0 12px 40px rgba(0,0,0,0.50), 0 4px 16px rgba(0,0,0,0.30);
+    --shadow-orange: 0 8px 24px rgba(255,86,0,0.30), 0 2px 8px rgba(255,86,0,0.20);
+    --shadow-orange-hover: 0 12px 32px rgba(255,86,0,0.45), 0 4px 12px rgba(255,86,0,0.28);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .card-shadow {
+    box-shadow: var(--shadow-md);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .card-shadow:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+  }
+  .card-shadow:active {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .card-shadow-sm {
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .card-shadow-sm:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .btn-shadow-orange {
+    box-shadow: var(--shadow-orange);
+    transition: box-shadow 0.2s ease, transform 0.15s ease, background 0.2s ease;
+  }
+  .btn-shadow-orange:hover {
+    box-shadow: var(--shadow-orange-hover);
+    transform: translateY(-1px);
+  }
+  .btn-shadow-orange:active {
+    box-shadow: var(--shadow-sm);
+    transform: translateY(0px);
+  }
+
+  @keyframes pulse-orange {
+    0%   { box-shadow: 0 0 0 0 rgba(255,86,0,0.4); }
+    70%  { box-shadow: 0 0 0 10px rgba(255,86,0,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,86,0,0); }
+  }
+
+  .btn-pulse {
+    animation: pulse-orange 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-green {
+    0%   { box-shadow: 0 0 0 0 rgba(37,211,102,0.4); }
+    70%  { box-shadow: 0 0 0 12px rgba(37,211,102,0); }
+    100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+  }
+
+  .fab-pulse {
+    animation: pulse-green 3s ease-in-out infinite;
+  }
+}
+
 /* ═══════════════════════════════════════════════════
    BASE STYLES
    ═══════════════════════════════════════════════════ */

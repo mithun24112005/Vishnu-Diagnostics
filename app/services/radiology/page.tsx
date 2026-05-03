@@ -5,6 +5,8 @@ import SectionHeader from "../../components/SectionHeader";
 import DoctorCard from "../../components/DoctorCard";
 import BookButton from "../../components/BookButton";
 import CTABanner from "../../components/CTABanner";
+import FadeIn from "../../components/FadeIn";
+import { StaggerChildren, StaggerItem } from "../../components/StaggerChildren";
 
 export const metadata: Metadata = {
   title: "Radiology & CT Scan Centre in Bangalore",
@@ -66,7 +68,7 @@ export default function RadiologyPage() {
             ]}
           />
           <div className="flex flex-col lg:flex-row gap-12 items-center">
-            <div className="lg:w-1/2">
+            <FadeIn className="lg:w-1/2">
               <h1 className="text-display-lg text-ink mb-4">
                 Radiology & Imaging
               </h1>
@@ -76,8 +78,8 @@ export default function RadiologyPage() {
                 week.
               </p>
               <BookButton label="Book Radiology Test" />
-            </div>
-            <div className="lg:w-1/2 w-full">
+            </FadeIn>
+            <FadeIn delay={0.2} className="lg:w-1/2 w-full">
               <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
                 <Image
                   src={`${BASE_URL}/real_img_8.jpg`}
@@ -87,7 +89,7 @@ export default function RadiologyPage() {
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -95,50 +97,57 @@ export default function RadiologyPage() {
       {/* Services List */}
       <section className="section-padding bg-surface border-y border-hairline">
         <div className="content-container">
-          <SectionHeader
-            eyebrow="Our imaging services"
-            headline="What We Offer"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <FadeIn>
+            <SectionHeader
+              eyebrow="Our imaging services"
+              headline="What We Offer"
+            />
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {SERVICES.map((service) => (
-              <div
-                key={service.name}
-                className="bg-canvas border border-hairline-soft rounded-lg p-6"
-              >
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="text-card-title text-ink">{service.name}</h3>
-                  {service.badge && (
-                    <span className="text-caption bg-status-red text-white px-2 py-0.5 rounded-pill font-medium shrink-0 ml-2">
-                      {service.badge}
-                    </span>
-                  )}
+              <StaggerItem key={service.name}>
+                <div className="bg-canvas border border-hairline-soft rounded-lg p-6">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-card-title text-ink">{service.name}</h3>
+                    {service.badge && (
+                      <span className="text-caption bg-status-red text-white px-2 py-0.5 rounded-pill font-medium shrink-0 ml-2">
+                        {service.badge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-body-sm text-ink-muted">{service.desc}</p>
                 </div>
-                <p className="text-body-sm text-ink-muted">{service.desc}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* Doctor Spotlight */}
       <section className="section-padding">
         <div className="content-container">
-          <SectionHeader
-            eyebrow="Our radiologists"
-            headline="Expert Imaging Specialists"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <FadeIn>
+            <SectionHeader
+              eyebrow="Our radiologists"
+              headline="Expert Imaging Specialists"
+            />
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {DOCTORS.map((doctor) => (
-              <DoctorCard key={doctor.name} {...doctor} />
+              <StaggerItem key={doctor.name}>
+                <DoctorCard {...doctor} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
-      <CTABanner
-        headline="Need a radiology test?"
-        subtext="Book your CT Scan, Ultrasound, X-Ray, or Doppler study today."
-      />
+      <FadeIn>
+        <CTABanner
+          headline="Need a radiology test?"
+          subtext="Book your CT Scan, Ultrasound, X-Ray, or Doppler study today."
+        />
+      </FadeIn>
     </>
   );
 }

@@ -17,7 +17,7 @@ export default function PackageCard({
 }: PackageCardProps) {
   if (featured) {
     return (
-      <div className="bg-ink text-white border border-ink rounded-lg p-6 flex flex-col h-full relative">
+      <div className="bg-ink text-white border border-ink rounded-lg p-6 flex flex-col h-full relative shadow-[0_0_0_2px_rgba(255,86,0,0.2),var(--shadow-md)]">
         {badge && (
           <span className="absolute -top-3 left-6 bg-orange text-white text-caption px-3 py-1 rounded-pill font-medium">
             {badge}
@@ -42,7 +42,7 @@ export default function PackageCard({
   }
 
   return (
-    <div className="bg-surface border border-hairline rounded-lg p-6 flex flex-col h-full">
+    <div className="bg-surface border border-hairline rounded-lg p-6 flex flex-col h-full card-shadow">
       <h3 className="text-card-title text-ink">{name}</h3>
       <ul className="space-y-1.5 mt-4 mb-6 flex-1">
         {tests.map((test, index) => (

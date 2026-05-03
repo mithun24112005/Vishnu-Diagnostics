@@ -11,7 +11,7 @@ export default function WhatsAppFAB() {
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
       title="Chat with us"
-      className="fixed right-6 bottom-6 md:bottom-6 z-[9999] w-14 h-14 rounded-pill bg-whatsapp text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform max-md:bottom-20"
+      className="fixed right-6 bottom-6 md:bottom-6 z-[9999] w-14 h-14 rounded-pill bg-whatsapp text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform max-md:bottom-20 fab-pulse"
     >
       <MessageCircle className="w-7 h-7" />
     </a>

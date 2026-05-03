@@ -12,12 +12,12 @@ export default function TestimonialCard({
   rating = 5,
 }: TestimonialCardProps) {
   return (
-    <div className="bg-surface border border-hairline rounded-lg p-8 flex flex-col h-full">
-      <div className="flex gap-0.5 mb-4">
+    <div className="bg-surface border border-hairline rounded-lg p-8 flex flex-col h-full card-shadow-sm">
+      <div className="flex gap-1 mb-5">
         {Array.from({ length: rating }).map((_, i) => (
           <Star
             key={i}
-            className="w-4 h-4 fill-orange text-orange"
+            className="w-6 h-6 fill-orange text-orange"
           />
         ))}
       </div>

@@ -8,6 +8,8 @@ interface ServiceCardProps {
   tests: string[];
   ctaLabel: string;
   href: string;
+  iconBg?: string;
+  iconColor?: string;
 }
 
 export default function ServiceCard({
@@ -16,11 +18,16 @@ export default function ServiceCard({
   tests,
   ctaLabel,
   href,
+  iconBg,
+  iconColor,
 }: ServiceCardProps) {
   return (
-    <div className="bg-surface border border-hairline rounded-lg p-6 flex flex-col h-full">
-      <div className="w-11 h-11 rounded-md bg-canvas flex items-center justify-center mb-4">
-        <Icon className="w-5 h-5 text-orange" />
+    <div className="bg-surface border border-hairline rounded-lg p-6 flex flex-col h-full group card-shadow">
+      <div
+        className="w-11 h-11 rounded-md flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200"
+        style={{ backgroundColor: iconBg || "var(--color-canvas)" }}
+      >
+        <Icon className="w-5 h-5" style={{ color: iconColor || "var(--color-orange)" }} />
       </div>
       <h3 className="text-card-title text-ink mb-3">{title}</h3>
       <ul className="space-y-1.5 mb-6 flex-1">

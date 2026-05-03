@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import FadeIn from "./FadeIn";
 
 interface FAQItem {
   question: string;
@@ -20,10 +21,8 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
       {items.map((item, index) => {
         const isOpen = openIndex === index;
         return (
-          <div
-            key={index}
-            className="bg-canvas border border-hairline-soft rounded-md overflow-hidden"
-          >
+          <FadeIn key={index} delay={index * 0.06}>
+            <div className="bg-canvas border border-hairline-soft rounded-md overflow-hidden">
             <button
               onClick={() => setOpenIndex(isOpen ? null : index)}
               className="w-full flex items-center justify-between p-6 text-left hover:bg-surface-2/50 transition-colors"
@@ -48,6 +47,7 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
               </p>
             </div>
           </div>
+        </FadeIn>
         );
       })}
     </div>

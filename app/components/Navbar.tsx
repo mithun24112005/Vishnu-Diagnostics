@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, ChevronDown } from "lucide-react";
 import BookButton from "./BookButton";
 import NavMobile from "./NavMobile";
+import NavLinks from "./NavLinks";
+import { useState, useEffect } from "react";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -21,8 +25,18 @@ const SERVICE_LINKS = [
 ];
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 bg-canvas h-14 border-b border-hairline-soft">
+    <header className={`sticky top-0 z-50 bg-canvas h-14 border-b transition-shadow duration-300 ${scrolled ? "shadow-[var(--shadow-sm)] border-transparent" : "border-hairline-soft"}`}>
       <div className="content-container h-full flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="shrink-0">
@@ -36,46 +50,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          {NAV_LINKS.map((link) => {
-            if (link.hasDropdown) {
-              return (
-                <div key={link.label} className="relative group">
-                  <Link
-                    href={link.href}
-                    className="flex items-center gap-1 text-body-sm text-ink hover:text-orange transition-colors py-4"
-                  >
-                    {link.label}
-                    <ChevronDown className="w-3.5 h-3.5" />
-                  </Link>
-                  {/* Dropdown */}
-                  <div className="absolute top-full left-0 pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <div className="bg-surface border border-hairline rounded-lg shadow-sm py-2 min-w-[200px]">
-                      {SERVICE_LINKS.map((sLink) => (
-                        <Link
-                          key={sLink.href}
-                          href={sLink.href}
-                          className="block px-4 py-2.5 text-body-sm text-ink hover:text-orange hover:bg-canvas transition-colors"
-                        >
-                          {sLink.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              );
-            }
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-body-sm text-ink hover:text-orange transition-colors"
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
+        <NavLinks />
 
         {/* Right side — phone + CTA + mobile toggle */}
         <div className="flex items-center gap-3">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import DoctorCard from "../components/DoctorCard";
 import SectionHeader from "../components/SectionHeader";
+import FadeIn from "../components/FadeIn";
+import { StaggerChildren, StaggerItem } from "../components/StaggerChildren";
 
 export const metadata: Metadata = {
   title: "Our Doctors",
@@ -47,21 +49,27 @@ export default function DoctorsPage() {
   return (
     <section className="section-padding">
       <div className="content-container">
-        <SectionHeader
-          eyebrow="Meet our team"
-          headline="Expert Specialists Committed to Your Health"
-          subtext="Our team of experienced doctors and technicians ensures accurate diagnostics and compassionate care for every patient."
-        />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <FadeIn>
+          <SectionHeader
+            eyebrow="Meet our team"
+            headline="Expert Specialists Committed to Your Health"
+            subtext="Our team of experienced doctors and technicians ensures accurate diagnostics and compassionate care for every patient."
+          />
+        </FadeIn>
+        <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {DOCTORS.slice(0, 3).map((doctor) => (
-            <DoctorCard key={doctor.name} {...doctor} />
+            <StaggerItem key={doctor.name}>
+              <DoctorCard {...doctor} />
+            </StaggerItem>
           ))}
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 max-w-2xl mx-auto">
+        </StaggerChildren>
+        <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 max-w-2xl mx-auto">
           {DOCTORS.slice(3).map((doctor) => (
-            <DoctorCard key={doctor.name} {...doctor} />
+            <StaggerItem key={doctor.name}>
+              <DoctorCard {...doctor} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
       </div>
     </section>
   );
